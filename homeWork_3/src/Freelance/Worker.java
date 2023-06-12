@@ -13,6 +13,6 @@ public class Worker extends Employer{
 
     @Override
     public String toString() {
-        return String.format("Рабочий: %s %s; Фиксированная з/п: %.2f руб.", name, surname, salary);
+        return String.format("Рабочий: %s %s; Фиксированная з/п: %.2f руб.", surname, name, salary);
     }
 }
