@@ -1,15 +1,16 @@
 package models;
 
+import presenters.Model;
+
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.Collection;
 
-public class TableModel {
-    private Collection<Table> tables;
+public class TableModel implements Model {
+    private ArrayList<Table> tables;
 
 
-//    получаем список столиков
-    public Collection<Table> loadTables() {
+//    получаем список столиков, инициализация коллекции
+    public ArrayList<Table> loadTables() {
         if (tables == null) {
             tables = new ArrayList<>();
             for (int i = 0; i < 5; i++) {
@@ -19,15 +20,38 @@ public class TableModel {
         return tables;
     }
 
-    private int resrevationTable(Date reserationData, int tableNo, String name) {
+    public int resrevationTable(Date reserationDate, int tableNo, String name) {
         for (Table table : tables) {
             if (table.getNo() == tableNo) {
-                Reservation reservation = new Reservation(reserationData, name);
+                Reservation reservation = new Reservation(reserationDate, name);
                 table.getReservations().add(reservation);
                 return reservation.getId();
             }
         }
         return -1;
     }
+
+
+    public int changeReservationTable(int oldReservation, Date reservationDate, int tableNo, String name) {
+//          удалить старый резерв
+//          добавить новый
+          for (Table table : tables) {
+            if (table.getNo() == tableNo) {
+                ArrayList<Reservation> tableReservList = table.getReservations();
+                for (Reservation tableReserv : tableReservList) {
+                    if (tableReserv.getId() == oldReservation) {
+                        int index = tableReservList.indexOf(tableReserv);
+                        tableReservList.remove(index);
+                        break;
+                    }
+                }
+                Reservation reservation = new Reservation(reservationDate, name);
+                tableReservList.add(reservation);
+                return reservation.getId();
+            }
+        }
+        return -1;
+     }
+
 
 }

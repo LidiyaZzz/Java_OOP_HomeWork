@@ -2,12 +2,13 @@ package presenters;
 
 import models.Table;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Date;
 
 public interface Model {
 
     //    получаем список столиков
-    Collection<Table> loadTables();
-    int resrevationTable(Date reserationData, int tableNo, String name);
+    ArrayList<Table> loadTables();
+    int resrevationTable(Date reserationDate, int tableNo, String name);
+    int changeReservationTable(int oldReservation, Date reservationDate, int tableNo, String name);
 }
